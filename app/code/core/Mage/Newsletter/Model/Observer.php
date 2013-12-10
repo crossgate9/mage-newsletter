@@ -69,4 +69,26 @@ class Mage_Newsletter_Model_Observer
 
          $collection->walk('sendPerSubscriber', array($countOfSubscritions));
     }
+
+    public function subscribeSuccess($observer) {
+        $_helper = Mage::helper('newsletter');
+        Mage::log($_helper->isAutoRespondEnabled());
+        if ($_helper->isAutoRespondEnabled() === true) {
+            $_data = $observer->getData();
+            $_email = $_data['email'];
+            
+            $_from = $_helper->getAutoRespondFrom();
+            $_subject = $_helper->getAutoRespondSubject();
+            $_content = $_helper->getAutoRespondContent();
+
+            Mage::log($_from);
+            Mage::log($_subject);
+            Mage::log($_content); 
+
+        	$_headers = 'From: ' . $_from . "\r\n";
+            $_headers .= 'MIME-Version: 1.0' ."\r\n";
+            $_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+            mail($_email, $_subject, $_content, $_headers);
+        }
+    }
 }

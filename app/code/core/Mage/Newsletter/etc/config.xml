@@ -151,6 +151,14 @@
                     </newsletter_subscribe_observer>
                 </observers>
             </customer_delete_after>
+            <newsletter_subscribe_success>
+                <observers>
+                    <newsletter_subscribe_observer>
+                        <class>newsletter/observer</class>
+                        <method>subscribeSuccess</method>
+                    </newsletter_subscribe_observer>
+                </observers>
+            </newsletter_subscribe_success>
         </events>
         <routers>
             <newsletter>

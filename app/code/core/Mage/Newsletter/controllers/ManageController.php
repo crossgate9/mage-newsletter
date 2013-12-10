@@ -71,6 +71,11 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
             ->setIsSubscribed((boolean)$this->getRequest()->getParam('is_subscribed', false))
             ->save();
             if ((boolean)$this->getRequest()->getParam('is_subscribed', false)) {
+                // ALLEN KOO: dispatch newsletter_subscribe_success event
+                $_customer = Mage::getSingleton('customer/session')->getCustomer();
+                $_data = array('email'=> $_customer->getData('email'));
+                Mage::dispatchEvent('newsletter_subscribe_success', $_data);
+
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been saved.'));
             } else {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));

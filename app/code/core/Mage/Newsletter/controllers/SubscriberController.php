@@ -66,6 +66,10 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                     $session->addSuccess($this->__('Confirmation request has been sent.'));
                 }
                 else {
+                    // ALLEN KOO: dispatch newsletter_subscribe_success event
+                    $_data = array('email' => $email);
+                    Mage::dispatchEvent('newsletter_subscribe_success', $_data);
+
                     $session->addSuccess($this->__('Thank you for your subscription.'));
                 }
             }
@@ -93,6 +97,10 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
 
             if($subscriber->getId() && $subscriber->getCode()) {
                 if($subscriber->confirm($code)) {
+                    // ALLEN KOO: dispatch newsletter_subscribe_success event
+                    $_data = array('email' => $subscriber->getData('email'));
+                    Mage::dispatchEvent('newsletter_subscribe_success', $_data);
+
                     $session->addSuccess($this->__('Your subscription has been confirmed.'));
                 } else {
                     $session->addError($this->__('Invalid subscription confirmation code.'));

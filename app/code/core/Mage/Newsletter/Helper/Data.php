@@ -36,6 +36,27 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
 {
     const XML_PATH_TEMPLATE_FILTER = 'global/newsletter/tempate_filter';
 
+    const XML_PATH_AUTORESPOND_ENABLED = 'newsletter/autorespond/enabled';
+    const XML_PATH_AUTORESPOND_FROM = 'newsletter/autorespond/from';
+    const XML_PATH_AUTORESPOND_SUBJECT = 'newsletter/autorespond/subject';
+    const XML_PATH_AUTORESPOND_CONTENT = 'newsletter/autorespond/content';
+
+    public function isAutoRespondEnabled() {
+        return Mage::getStoreConfig(self::XML_PATH_AUTORESPOND_ENABLED) === '1';
+    }
+
+    public function getAutoRespondFrom() {
+        return Mage::getStoreConfig(self::XML_PATH_AUTORESPOND_FROM);
+    }
+
+    public function getAutoRespondSubject() {
+        return Mage::getStoreConfig(self::XML_PATH_AUTORESPOND_SUBJECT);
+    }
+
+    public function getAutoRespondContent() {
+        return Mage::getStoreConfig(self::XML_PATH_AUTORESPOND_CONTENT);
+    }
+
     /**
      * Retrieve subsription confirmation url
      *
